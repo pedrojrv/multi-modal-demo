@@ -5,11 +5,23 @@ import pyarrow as pa
 from src.constants import VECTORDB_PATH
 
 
-class OurVectorDB:
+class DemoVectorDB:
     def __init__(self, path):
         self.path = path
+        self.db = None
 
+    async def connect(self):
+        self.db = await lancedb.connect_async(self.path)
 
+    def create_image_table(self):
+        schema = pa.schema(
+            [
+                pa.field("vector", pa.list_(pa.float32(), list_size=2)),
+                pa.field("image", pa.binary()),
+                pa.field("caption", pa.string()),
+            ]
+        )
+        self.db.create_table("image_table", schema=schema)
 
 db = lancedb.connect(VECTORDB_PATH)
 
