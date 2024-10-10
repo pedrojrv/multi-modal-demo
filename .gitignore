@@ -161,3 +161,5 @@ cython_debug/
 
 experiment*
 *.DS_Store
+
+src/inference/models/
