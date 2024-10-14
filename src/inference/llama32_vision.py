@@ -13,10 +13,10 @@ class GroqLlama32Vision:
 
     def invoke(self, text, image: str = None):
         messages = [
-            {
-                "role": "system",
-                "content": "Your only job is to provide detailed image captions."
-            },
+            # {
+            #     "role": "system",
+            #     "content": "Your only job is to provide detailed image captions."
+            # },
             {
                 "role": "user",
                 "content": [
@@ -25,21 +25,14 @@ class GroqLlama32Vision:
             }
         ]
 
-        if image:
-            image_is_url = image.startswith("http")
-            if image_is_url:
-                input_image = image
-            else:
-                input_image = self.encode_image(image)
-        else:
-            input_image = None
+        input_image = self.encode_image(image) if image else None
 
         if input_image:
             messages[0]["content"].append(
                 {
                     "type": "image_url",
                     "image_url": {
-                        "url": f"data:image/jpeg;base64,{input_image}" if not image_is_url else "${input_mage}",
+                        "url": f"data:image/jpeg;base64,{input_image}",
                     },
                 }
             )
@@ -54,6 +47,12 @@ class GroqLlama32Vision:
             stop=None,
         )
         return chat_completion.choices[0].message.content
+
+    def caption_image(self, images):
+        captions = []
+        for image_path in images:
+            captions.append(self.invoke("Create a detailed caption for the attached image.", image_path))
+        return captions
 
 
 if __name__ == "__main__":

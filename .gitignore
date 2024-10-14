@@ -163,3 +163,4 @@ experiment*
 *.DS_Store
 
 src/inference/models/
+vectordb/
