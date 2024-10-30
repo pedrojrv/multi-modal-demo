@@ -1,0 +1,30 @@
+version: "2"
+
+# exclude_patterns:
+# - "spotify_refresher/model/"
+
+checks:
+  argument-count:
+    config:
+      threshold: 7
+  complex-logic:
+    config:
+      threshold: 4
+  file-lines:
+    config:
+      threshold: 270
+  method-complexity:
+    config:
+      threshold: 8
+  method-count:
+    config:
+      threshold: 20
+  method-length:
+    config:
+      threshold: 30
+  nested-control-flow:
+    config:
+      threshold: 4
+  return-statements:
+    config:
+      threshold: 4
