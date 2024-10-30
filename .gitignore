@@ -164,3 +164,4 @@ experiment*
 
 src/inference/models/
 vectordb/
+lance.db
